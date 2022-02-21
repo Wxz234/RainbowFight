@@ -1,3 +1,0 @@
-#ifdef DDD
-
-#endif 
