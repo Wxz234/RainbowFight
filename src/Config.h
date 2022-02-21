@@ -3,7 +3,8 @@
 #include <cstdint>
 namespace RainbowFight {
 	struct Config {
-		uint32_t width = 800;
-		uint32_t height = 600;
+		uint32_t width = 1024;
+		uint32_t height = 768;
+		bool isFullScreen = false;
 	};
 }
