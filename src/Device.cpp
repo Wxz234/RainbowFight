@@ -61,6 +61,12 @@ namespace RainbowFight {
 		else {
 			_pimpl->m_swapChain->Present(0, 0);
 		}
-		
+	}
+
+	ID3D11Device* Device::GetDevice() const {
+		return _pimpl->m_Device.Get();
+	}
+	ID3D11DeviceContext* Device::GetContext() const {
+		return _pimpl->m_DeviceContext.Get();
 	}
 }
