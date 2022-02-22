@@ -41,6 +41,11 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
     
     RainbowFight::Device device(hwnd, config.width, config.height);
 
+    auto mainContext = device.GetContext();
+    auto device_ptr = device.GetDevice();
+    ID3D11DeviceContext* skyboxContext = nullptr;
+    device_ptr->CreateDeferredContext(0, &skyboxContext);
+    
     ShowWindow(hwnd, SW_SHOWDEFAULT);
     MSG msg = {};
     while (WM_QUIT != msg.message) {
@@ -53,5 +58,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
             device.Present(config.isVSync);
         }
     }
+
+    skyboxContext->Release();
     return 0;
 }
