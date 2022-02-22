@@ -2,6 +2,7 @@
 #include "Shader.h"
 #include "Device.h"
 #include "Config.h"
+#include "Light.h"
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
