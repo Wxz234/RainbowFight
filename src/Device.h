@@ -5,7 +5,7 @@ namespace RainbowFight {
     struct Device {
         Device(HWND hwnd,uint32_t w, uint32_t h);
         ~Device();
-        void Present();
+        void Present(bool isVSync);
     private:
         struct Impl;
         Impl *_pimpl;

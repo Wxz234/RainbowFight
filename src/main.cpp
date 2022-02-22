@@ -49,7 +49,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
             DispatchMessage(&msg);
         }
         else {
-            device.Present();
+            device.Present(config.isVSync);
         }
     }
     return 0;

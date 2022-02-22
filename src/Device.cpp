@@ -54,8 +54,14 @@ namespace RainbowFight {
 		delete _pimpl;
 	}
 
-	void Device::Present() {
-		_pimpl->m_swapChain->Present(1, 0);
+	void Device::Present(bool isVSync) {
+		if (isVSync) {
+			_pimpl->m_swapChain->Present(1, 0);
+		}
+		else {
+			_pimpl->m_swapChain->Present(0, 0);
+		}
+		
 	}
 }
 
