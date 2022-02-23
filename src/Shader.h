@@ -1,6 +1,6 @@
 #pragma once
+#include <d3dcommon.h>
+#include <wrl/client.h>
 namespace RainbowFight {
-	struct Shader {
-		Shader(const wchar_t* vs, const wchar_t* ps);
-	};
+
 }

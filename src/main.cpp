@@ -43,7 +43,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
 
     auto mainContext = device.GetContext();
     auto device_ptr = device.GetDevice();
-    ID3D11DeviceContext* skyboxContext = nullptr;
+    Microsoft::WRL::ComPtr<ID3D11DeviceContext> skyboxContext;
     device_ptr->CreateDeferredContext(0, &skyboxContext);
     
     ShowWindow(hwnd, SW_SHOWDEFAULT);
@@ -55,18 +55,13 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
             DispatchMessage(&msg);
         }
         else {
-            ID3D11CommandList* list = nullptr;
+            Microsoft::WRL::ComPtr<ID3D11CommandList> list;
             skyboxContext->FinishCommandList(FALSE, &list);
-            if (list) {
-                mainContext->ExecuteCommandList(list, TRUE);
-            }
-         
+            mainContext->ExecuteCommandList(list.Get(), TRUE);
+            
             device.Present(config.isVSync);
-
-            list->Release();
         }
     }
 
-    skyboxContext->Release();
     return 0;
 }
