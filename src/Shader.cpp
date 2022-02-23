@@ -7,9 +7,13 @@ namespace RainbowFight {
 	}
 
 	ShaderBlob CompileSkyBoxShader() {
+		ShaderBlob blob;
 		auto vs_path = getPath(L"/shaders/skybox_vs.hlsl");
-		
-		return ShaderBlob();
+		auto ps_path = getPath(L"/shaders/skybox_ps.hlsl");
+		D3DCompileFromFile(vs_path.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, "main", "vs_5_0", 0, 0, &blob.vs, nullptr);
+		D3DCompileFromFile(ps_path.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, "main", "ps_5_0", 0, 0, &blob.ps, nullptr);
+
+		return blob;
 	}
 }
 
