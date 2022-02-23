@@ -55,7 +55,15 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
             DispatchMessage(&msg);
         }
         else {
+            ID3D11CommandList* list = nullptr;
+            skyboxContext->FinishCommandList(FALSE, &list);
+            if (list) {
+                mainContext->ExecuteCommandList(list, TRUE);
+            }
+         
             device.Present(config.isVSync);
+
+            list->Release();
         }
     }
 
