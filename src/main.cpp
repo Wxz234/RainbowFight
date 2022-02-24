@@ -1,4 +1,5 @@
 #include <Windows.h>
+#include "Camera.h"
 #include "Shader.h"
 #include "Device.h"
 #include "Config.h"
