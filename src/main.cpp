@@ -39,7 +39,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
     AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW ^ WS_THICKFRAME ^ WS_MAXIMIZEBOX, FALSE);
     HWND hwnd = CreateWindowExW(0, L"RainbowFight", L"RainbowFight", WS_OVERLAPPEDWINDOW ^ WS_THICKFRAME ^ WS_MAXIMIZEBOX, CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left, rc.bottom - rc.top, nullptr, nullptr, GetModuleHandle(nullptr), nullptr);
     
-    RainbowFight::CompileSkyBoxShader();
+    auto sktbox_bolb = RainbowFight::CompileSkyBoxShader();
 
     RainbowFight::Device device(hwnd, config.width, config.height);
 
@@ -58,7 +58,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
         }
         else {
             Microsoft::WRL::ComPtr<ID3D11CommandList> list;
-            skyboxContext->FinishCommandList(FALSE, &list);
+            skyboxContext->FinishCommandList(TRUE, &list);
             mainContext->ExecuteCommandList(list.Get(), TRUE);
             
             device.Present(config.isVSync);
