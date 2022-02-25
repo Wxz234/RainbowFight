@@ -44,19 +44,6 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
 
     RainbowFight::Device device(hwnd, config.width, config.height);
 
-    auto mainContext = device.GetContext();
-    auto device_ptr = device.GetDevice();
-    Microsoft::WRL::ComPtr<ID3D11DeviceContext> skyboxContext;
-    device_ptr->CreateDeferredContext(0, &skyboxContext);
-
-    Microsoft::WRL::ComPtr<ID3D11VertexShader> vs;
-    device_ptr->CreateVertexShader(sktbox_bolb.vs->GetBufferPointer(), sktbox_bolb.vs->GetBufferSize(), nullptr, &vs);
-    Microsoft::WRL::ComPtr<ID3D11PixelShader> ps;
-    device_ptr->CreatePixelShader(sktbox_bolb.ps->GetBufferPointer(), sktbox_bolb.ps->GetBufferSize(), nullptr, &ps);
-    skyboxContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-    skyboxContext->VSSetShader(vs.Get(), nullptr, 0);
-    skyboxContext->PSSetShader(ps.Get(), nullptr, 0);
-    
     ShowWindow(hwnd, SW_SHOWDEFAULT);
     MSG msg = {};
     while (WM_QUIT != msg.message) {
@@ -66,9 +53,6 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
             DispatchMessage(&msg);
         }
         else {
-            Microsoft::WRL::ComPtr<ID3D11CommandList> list;
-            skyboxContext->FinishCommandList(TRUE, &list);
-            mainContext->ExecuteCommandList(list.Get(), TRUE);
             
             device.Present(config.isVSync);
         }
