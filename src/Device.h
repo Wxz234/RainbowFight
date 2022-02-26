@@ -9,6 +9,7 @@ namespace RainbowFight {
         void Present(bool isVSync);
         ID3D11Device* GetDevice() const;
         ID3D11DeviceContext* GetContext() const;
+        void CreateDeferredContext(ID3D11DeviceContext** ppDeferredContext);
     private:
         struct Impl;
         Impl *_pimpl;

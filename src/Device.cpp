@@ -68,4 +68,7 @@ namespace RainbowFight {
 	ID3D11DeviceContext* Device::GetContext() const {
 		return _pimpl->m_DeviceContext.Get();
 	}
+	void Device::CreateDeferredContext(ID3D11DeviceContext** ppDeferredContext) {
+		_pimpl->m_Device->CreateDeferredContext(0, ppDeferredContext);
+	}
 }
