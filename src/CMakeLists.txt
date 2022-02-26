@@ -4,6 +4,7 @@ add_executable(RainbowFight WIN32
 	Shader.cpp
 	Device.cpp
 	Light.cpp
+	Model.cpp
 	DDSTextureLoader11.cpp
 )
 target_compile_definitions(RainbowFight PRIVATE UNICODE)

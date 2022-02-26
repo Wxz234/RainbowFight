@@ -4,6 +4,7 @@
 #include "Device.h"
 #include "Config.h"
 #include "Light.h"
+#include "Model.h"
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
@@ -39,8 +40,6 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
     RECT rc = { 0, 0, static_cast<LONG>(config.width), static_cast<LONG>(config.height) };
     AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW ^ WS_THICKFRAME ^ WS_MAXIMIZEBOX, FALSE);
     HWND hwnd = CreateWindowExW(0, L"RainbowFight", L"RainbowFight", WS_OVERLAPPEDWINDOW ^ WS_THICKFRAME ^ WS_MAXIMIZEBOX, CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left, rc.bottom - rc.top, nullptr, nullptr, GetModuleHandle(nullptr), nullptr);
-    
-    auto sktbox_bolb = RainbowFight::CompileSkyBoxShader();
 
     RainbowFight::Device device(hwnd, config.width, config.height);
 
