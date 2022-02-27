@@ -43,6 +43,7 @@ namespace RainbowFight {
 			thisX += raw->data.mouse.lLastX;
 			thisY += raw->data.mouse.lLastY;
 
+
 			if (raw->data.mouse.usButtonFlags & RI_MOUSE_LEFT_BUTTON_DOWN) {
 				//inputmessage.leftclick = true;
 			}
@@ -66,6 +67,9 @@ namespace RainbowFight {
 	void processInput() {
 		deltaX = thisX - lastX;
 		deltaY = thisY - lastY;
+
+		lastX = thisX;
+		lastY = thisY;
 	}
 
 }
