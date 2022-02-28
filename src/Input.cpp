@@ -10,8 +10,6 @@ namespace RainbowFight {
 	bool leftclick = false;
 	bool rightclick = false;
 
-
-
 	void RegisterInputDevices(HWND hwnd){
 		RAWINPUTDEVICE Rid[2] = {};
 
@@ -43,20 +41,38 @@ namespace RainbowFight {
 			thisX += raw->data.mouse.lLastX;
 			thisY += raw->data.mouse.lLastY;
 
+			if (thisX >= 10000000) {
+				thisX -= 10000000;
+				lastX -= 10000000;
+			}else if (thisX <= -10000000) {
+				thisX += 10000000;
+				lastX += 10000000;
+			}
+			if (thisY >= 10000000) {
+				thisY -= 10000000;
+				lastY -= 10000000;
+			}
+			else if (thisY <= -10000000) {
+				thisY += 10000000;
+				lastY += 10000000;
+			}
 
 			if (raw->data.mouse.usButtonFlags & RI_MOUSE_LEFT_BUTTON_DOWN) {
 				//inputmessage.leftclick = true;
+				leftclick = true;
 			}
 			else if(raw->data.mouse.usButtonFlags & RI_MOUSE_LEFT_BUTTON_UP) {
 				//inputmessage.leftclick = false;
-
+				leftclick = false;
 			}
 
 			if (raw->data.mouse.usButtonFlags & RI_MOUSE_RIGHT_BUTTON_DOWN) {
 				//inputmessage.leftclick = true;
+				rightclick = true;
 			}
 			else if (raw->data.mouse.usButtonFlags & RI_MOUSE_RIGHT_BUTTON_UP) {
 				//inputmessage.leftclick = false;
+				rightclick = false;
 			}
 		}
 
@@ -64,12 +80,20 @@ namespace RainbowFight {
 	}
 
 
-	void processInput() {
+	void ProcessInput() {
 		deltaX = thisX - lastX;
 		deltaY = thisY - lastY;
 
 		lastX = thisX;
 		lastY = thisY;
 	}
+
+	int GetDeltaX() {
+		return deltaX;
+	}
+	int GetDeltaY() {
+		return deltaY;
+	}
+
 
 }
