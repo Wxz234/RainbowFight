@@ -74,6 +74,7 @@ namespace RainbowFight {
 				//inputmessage.leftclick = false;
 				rightclick = false;
 			}
+
 		}
 
 		delete[] lpb;
