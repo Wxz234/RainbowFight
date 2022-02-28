@@ -26,7 +26,7 @@ namespace RainbowFight {
 		RegisterRawInputDevices(Rid, 2, sizeof(Rid[0]));
 	}
 
-	void UpdateInputMessage(HWND hwnd,LPARAM lParam,const Config &config) {
+	void UpdateInputMessage(HWND hwnd,LPARAM lParam) {
 		UINT dwSize = 0;
 		GetRawInputData((HRAWINPUT)lParam, RID_INPUT, NULL, &dwSize, sizeof(RAWINPUTHEADER));
 		LPBYTE lpb = new BYTE[dwSize];
@@ -70,11 +70,6 @@ namespace RainbowFight {
 				rightclick = false;
 			}
 
-			if (config.isCursorLocked) {
-				POINT point = { config.width / 2,config.height / 2 };
-				ClientToScreen(hwnd, &point);
-				SetCursorPos(point.x, point.y);
-			}
 		}
 
 		delete[] lpb;

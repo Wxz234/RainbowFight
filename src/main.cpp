@@ -18,7 +18,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
     case WM_INPUT:
     {
-        RainbowFight::UpdateInputMessage(hWnd, lParam, config);
+        RainbowFight::UpdateInputMessage(hWnd, lParam);
         break;
     }
     case WM_DESTROY:
@@ -63,6 +63,14 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
         }
         else {
             RainbowFight::ProcessInput();
+
+            if (config.isCursorLocked) {
+             
+                //ClipCursor()
+            }
+            else {
+
+            }
             
             device.Present(config.isVSync);
         }
