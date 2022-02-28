@@ -8,7 +8,7 @@
 #include "Input.h"
 
 RainbowFight::Config config;
-bool isLockCursor = false;
+bool isLockCursor = true;
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -65,6 +65,9 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
         }
         else {
             RainbowFight::ProcessInput();
+            if (isLockCursor) {
+                SetCursorPos((rc.right + rc.left) / 2, (rc.bottom + rc.top) / 2);
+            }
             device.Present(config.isVSync);
         }
     }
