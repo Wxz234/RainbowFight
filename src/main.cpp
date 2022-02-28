@@ -8,7 +8,6 @@
 #include "Input.h"
 
 RainbowFight::Config config;
-bool isLockCursor = true;
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -50,10 +49,9 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
     RECT rc = { 0, 0, static_cast<LONG>(config.width), static_cast<LONG>(config.height) };
     AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW ^ WS_THICKFRAME ^ WS_MAXIMIZEBOX, FALSE);
     HWND hwnd = CreateWindowExW(0, L"RainbowFight", L"RainbowFight", WS_OVERLAPPEDWINDOW ^ WS_THICKFRAME ^ WS_MAXIMIZEBOX, CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left, rc.bottom - rc.top, nullptr, nullptr, GetModuleHandle(nullptr), nullptr);
-    
-    RainbowFight::Device device(hwnd, config.width, config.height);
-
+   
     RainbowFight::RegisterInputDevices(hwnd);
+    RainbowFight::Device device(hwnd, config.width, config.height);
 
     ShowWindow(hwnd, SW_SHOWDEFAULT);
     MSG msg = {};
@@ -65,9 +63,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
         }
         else {
             RainbowFight::ProcessInput();
-            if (isLockCursor) {
-                SetCursorPos((rc.right + rc.left) / 2, (rc.bottom + rc.top) / 2);
-            }
+            
             device.Present(config.isVSync);
         }
     }
