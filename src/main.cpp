@@ -18,7 +18,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
     case WM_INPUT:
     {
-        RainbowFight::UpdateInputMessage(hWnd, lParam);
+        RainbowFight::UpdateInputMessage(hWnd, lParam, config);
         break;
     }
     case WM_DESTROY:

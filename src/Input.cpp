@@ -15,18 +15,18 @@ namespace RainbowFight {
 
 		Rid[0].usUsagePage = 0x01;          // HID_USAGE_PAGE_GENERIC
 		Rid[0].usUsage = 0x02;              // HID_USAGE_GENERIC_MOUSE
-		Rid[0].dwFlags = RIDEV_NOLEGACY;
+		Rid[0].dwFlags = 0;					// RIDEV_NOLEGACY
 		Rid[0].hwndTarget = 0;
 
 		Rid[1].usUsagePage = 0x01;          // HID_USAGE_PAGE_GENERIC
 		Rid[1].usUsage = 0x06;              // HID_USAGE_GENERIC_KEYBOARD
-		Rid[1].dwFlags = RIDEV_NOLEGACY;
+		Rid[1].dwFlags = 0;
 		Rid[1].hwndTarget = 0;
 
 		RegisterRawInputDevices(Rid, 2, sizeof(Rid[0]));
 	}
 
-	void UpdateInputMessage(HWND hwnd,LPARAM lParam) {
+	void UpdateInputMessage(HWND hwnd,LPARAM lParam,const Config &config) {
 		UINT dwSize = 0;
 		GetRawInputData((HRAWINPUT)lParam, RID_INPUT, NULL, &dwSize, sizeof(RAWINPUTHEADER));
 		LPBYTE lpb = new BYTE[dwSize];
@@ -70,6 +70,11 @@ namespace RainbowFight {
 				rightclick = false;
 			}
 
+			if (config.isCursorLocked) {
+				POINT point = { config.width / 2,config.height / 2 };
+				ClientToScreen(hwnd, &point);
+				SetCursorPos(point.x, point.y);
+			}
 		}
 
 		delete[] lpb;
