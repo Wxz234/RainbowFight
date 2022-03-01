@@ -52,7 +52,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
    
     RainbowFight::RegisterInputDevices(hwnd);
     RainbowFight::Device device(hwnd, config.width, config.height);
-
+    RainbowFight::Camera camera;
     ShowWindow(hwnd, SW_SHOWDEFAULT);
     MSG msg = {};
     while (WM_QUIT != msg.message) {
