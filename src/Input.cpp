@@ -16,12 +16,12 @@ namespace RainbowFight {
 		Rid[0].usUsagePage = 0x01;          // HID_USAGE_PAGE_GENERIC
 		Rid[0].usUsage = 0x02;              // HID_USAGE_GENERIC_MOUSE
 		Rid[0].dwFlags = 0;					// RIDEV_NOLEGACY
-		Rid[0].hwndTarget = 0;
+		Rid[0].hwndTarget = hwnd;
 
 		Rid[1].usUsagePage = 0x01;          // HID_USAGE_PAGE_GENERIC
 		Rid[1].usUsage = 0x06;              // HID_USAGE_GENERIC_KEYBOARD
 		Rid[1].dwFlags = 0;
-		Rid[1].hwndTarget = 0;
+		Rid[1].hwndTarget = hwnd;
 
 		RegisterRawInputDevices(Rid, 2, sizeof(Rid[0]));
 	}

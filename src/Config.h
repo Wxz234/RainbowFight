@@ -7,6 +7,6 @@ namespace RainbowFight {
 		uint32_t height = 600;
 		bool isFullScreen = false;
 		bool isVSync = true;
-		bool isCursorLocked = true;
+		bool isCursorLocked = false;
 	};
 }

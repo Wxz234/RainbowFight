@@ -7,6 +7,9 @@
 #include "Model.h"
 #include "Input.h"
 
+#include <imgui.h>
+
+
 RainbowFight::Config config;
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -65,11 +68,21 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
             RainbowFight::ProcessInput();
 
             if (config.isCursorLocked) {
-             
-                //ClipCursor()
+                ShowCursor(FALSE);
+                POINT point = { config.width / 2,config.height / 2 };
+                ClientToScreen(hwnd, &point);
+                SetCursorPos(point.x, point.y);
+                RECT rect = {};
+                rect.left = point.x - config.width / 4;
+                rect.right = point.x + config.width / 4;
+                rect.top = point.y - config.height / 4;
+                rect.bottom = point.y + config.height / 4;
+                ClipCursor(&rect);
             }
-            else {
-
+            else
+            {
+                ShowCursor(TRUE);
+                ClipCursor(NULL);
             }
             
             device.Present(config.isVSync);

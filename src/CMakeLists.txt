@@ -9,6 +9,7 @@ add_executable(RainbowFight WIN32
 	"Config.cpp"
 	"DDSTextureLoader11.cpp"
 )
+target_include_directories(RainbowFight PRIVATE ${PROJECT_SOURCE_DIR}/thirdparty/imgui)
 target_compile_definitions(RainbowFight PRIVATE UNICODE)
 target_link_libraries(RainbowFight PRIVATE d3d11 dxguid dxgi d3dcompiler)
 set_target_properties(RainbowFight PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
