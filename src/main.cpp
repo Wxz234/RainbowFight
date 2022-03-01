@@ -7,9 +7,6 @@
 #include "Model.h"
 #include "Input.h"
 
-#include <imgui.h>
-
-
 RainbowFight::Config config;
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
