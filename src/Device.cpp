@@ -7,6 +7,7 @@ namespace RainbowFight {
 		Microsoft::WRL::ComPtr<ID3D11Device> m_Device;
 		Microsoft::WRL::ComPtr<ID3D11DeviceContext> m_DeviceContext;
 		Microsoft::WRL::ComPtr<IDXGISwapChain1> m_swapChain;
+		Microsoft::WRL::ComPtr<ID3D11RenderTargetView> m_rtv;
 	};
 
 	Device::Device(HWND hwnd, uint32_t w, uint32_t h) {
@@ -48,6 +49,10 @@ namespace RainbowFight {
 		
 		pIDXGIFactory->CreateSwapChainForHwnd(g_pd3dDevice, hwnd, &_desc, &fsSwapChainDesc, nullptr, &_pimpl->m_swapChain);
 		pIDXGIFactory->MakeWindowAssociation(hwnd, DXGI_MWA_NO_WINDOW_CHANGES | DXGI_MWA_NO_ALT_ENTER);
+
+		Microsoft::WRL::ComPtr <ID3D11Texture2D> pBackBuffer;
+		_pimpl->m_swapChain->GetBuffer(0, IID_PPV_ARGS(&pBackBuffer));
+		g_pd3dDevice->CreateRenderTargetView(pBackBuffer.Get(), NULL, &_pimpl->m_rtv);
 	}
 	Device::~Device() {
 		delete _pimpl;
@@ -70,5 +75,9 @@ namespace RainbowFight {
 	}
 	void Device::CreateDeferredContext(ID3D11DeviceContext** ppDeferredContext) {
 		_pimpl->m_Device->CreateDeferredContext(0, ppDeferredContext);
+	}
+
+	ID3D11RenderTargetView* Device::GetRenderTargetView() const {
+		return _pimpl->m_rtv.Get();
 	}
 }
