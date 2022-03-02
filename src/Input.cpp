@@ -15,7 +15,7 @@ namespace RainbowFight {
 
 		Rid[0].usUsagePage = 0x01;          // HID_USAGE_PAGE_GENERIC
 		Rid[0].usUsage = 0x02;              // HID_USAGE_GENERIC_MOUSE
-		Rid[0].dwFlags = RIDEV_NOLEGACY | RIDEV_CAPTUREMOUSE;
+		Rid[0].dwFlags = 0;
 		Rid[0].hwndTarget = hwnd;
 
 		Rid[1].usUsagePage = 0x01;          // HID_USAGE_PAGE_GENERIC
