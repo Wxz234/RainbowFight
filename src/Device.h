@@ -11,6 +11,7 @@ namespace RainbowFight {
         ID3D11DeviceContext* GetContext() const;
         void CreateDeferredContext(ID3D11DeviceContext** ppDeferredContext);
         ID3D11RenderTargetView* GetRenderTargetView() const;
+        HWND GetHWND() const;
     private:
         struct Impl;
         Impl *_pimpl;

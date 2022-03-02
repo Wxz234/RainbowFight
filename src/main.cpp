@@ -6,11 +6,16 @@
 #include "Light.h"
 #include "Model.h"
 #include "Input.h"
+#include "Debug.h"
 
 RainbowFight::Config config;
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+
+    if (RainbowFight::ImguiWindowProc(hWnd, message, wParam, lParam)) {
+        return true;
+    }
     switch (message)
     {
     case WM_CREATE:
@@ -63,6 +68,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
     RainbowFight::RegisterInputDevices(hwnd);
     RainbowFight::Device device(hwnd, config.width, config.height);
     RainbowFight::Camera camera;
+    RainbowFight::ImguiInit(&device);
     
     ShowWindow(hwnd, SW_SHOWDEFAULT);
     MSG msg = {};
@@ -74,6 +80,10 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
         }
         else {
             RainbowFight::ProcessInput();
+            RainbowFight::ImguiNewFrame();
+            ImGui::Begin("Hello, world!");
+            ImGui::End();
+            RainbowFight::ImguiRender(device.GetRenderTargetView());
             device.Present(config.isVSync);
         }
     }

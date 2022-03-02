@@ -19,6 +19,7 @@ add_executable(RainbowFight WIN32
 	"Model.cpp"
 	"Input.cpp"
 	"Config.cpp"
+	"Debug.cpp"
 	"DDSTextureLoader11.cpp"
 )
 target_compile_definitions(RainbowFight PRIVATE UNICODE)

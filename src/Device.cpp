@@ -8,10 +8,12 @@ namespace RainbowFight {
 		Microsoft::WRL::ComPtr<ID3D11DeviceContext> m_DeviceContext;
 		Microsoft::WRL::ComPtr<IDXGISwapChain1> m_swapChain;
 		Microsoft::WRL::ComPtr<ID3D11RenderTargetView> m_rtv;
+		HWND m_hwnd;
 	};
 
 	Device::Device(HWND hwnd, uint32_t w, uint32_t h) {
 		_pimpl = new Impl;
+		_pimpl->m_hwnd = hwnd;
 		UINT createDeviceFlags = 0;
 #if defined(DEBUG) || defined(_DEBUG)  
         createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
@@ -79,5 +81,8 @@ namespace RainbowFight {
 
 	ID3D11RenderTargetView* Device::GetRenderTargetView() const {
 		return _pimpl->m_rtv.Get();
+	}
+	HWND Device::GetHWND() const {
+		return _pimpl->m_hwnd;
 	}
 }
