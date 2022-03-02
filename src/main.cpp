@@ -45,14 +45,25 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
     wcex.lpszClassName = L"RainbowFight";
     wcex.hIconSm = LoadIconW(wcex.hInstance, L"IDI_ICON");
     RegisterClassExW(&wcex);
+    HWND hwnd = NULL;
+    if (config.isFullScreen) {
+        config.width = GetSystemMetrics(SM_CXSCREEN);
+        config.height = GetSystemMetrics(SM_CYSCREEN);
+        hwnd = CreateWindowExW(WS_EX_TOPMOST, L"RainbowFight", L"RainbowFight", WS_POPUP, 0, 0, config.width, config.height, nullptr, nullptr, GetModuleHandle(nullptr), nullptr);
+        //more monitor
 
-    RECT rc = { 0, 0, static_cast<LONG>(config.width), static_cast<LONG>(config.height) };
-    AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW ^ WS_THICKFRAME ^ WS_MAXIMIZEBOX, FALSE);
-    HWND hwnd = CreateWindowExW(0, L"RainbowFight", L"RainbowFight", WS_OVERLAPPEDWINDOW ^ WS_THICKFRAME ^ WS_MAXIMIZEBOX, CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left, rc.bottom - rc.top, nullptr, nullptr, GetModuleHandle(nullptr), nullptr);
+    }
+    else {
+        RECT rc = { 0, 0, static_cast<LONG>(config.width), static_cast<LONG>(config.height) };
+        AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW ^ WS_THICKFRAME ^ WS_MAXIMIZEBOX, FALSE);
+        hwnd = CreateWindowExW(0, L"RainbowFight", L"RainbowFight", WS_OVERLAPPEDWINDOW ^ WS_THICKFRAME ^ WS_MAXIMIZEBOX, CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left, rc.bottom - rc.top, nullptr, nullptr, GetModuleHandle(nullptr), nullptr);
+    }
+
    
     RainbowFight::RegisterInputDevices(hwnd);
     RainbowFight::Device device(hwnd, config.width, config.height);
     RainbowFight::Camera camera;
+    
     ShowWindow(hwnd, SW_SHOWDEFAULT);
     MSG msg = {};
     while (WM_QUIT != msg.message) {
