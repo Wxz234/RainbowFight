@@ -55,8 +55,6 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
         config.width = GetSystemMetrics(SM_CXSCREEN);
         config.height = GetSystemMetrics(SM_CYSCREEN);
         hwnd = CreateWindowExW(0, L"RainbowFight", L"RainbowFight", WS_POPUP, 0, 0, config.width, config.height, nullptr, nullptr, GetModuleHandle(nullptr), nullptr);
-        //more monitor
-
     }
     else {
         RECT rc = { 0, 0, static_cast<LONG>(config.width), static_cast<LONG>(config.height) };
@@ -64,13 +62,12 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
         hwnd = CreateWindowExW(0, L"RainbowFight", L"RainbowFight", WS_OVERLAPPEDWINDOW ^ WS_THICKFRAME ^ WS_MAXIMIZEBOX, CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left, rc.bottom - rc.top, nullptr, nullptr, GetModuleHandle(nullptr), nullptr);
     }
 
-   
     RainbowFight::RegisterInputDevices(hwnd);
     RainbowFight::Device device(hwnd, config.width, config.height);
     RainbowFight::Camera camera;
-    RainbowFight::ImguiInit(&device);
-    
+
     ShowWindow(hwnd, SW_SHOW);
+    
     MSG msg = {};
     while (WM_QUIT != msg.message) {
         if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
@@ -80,13 +77,9 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
         }
         else {
             RainbowFight::ProcessInput();
-            RainbowFight::ImguiNewFrame();
-            ImGui::Begin("Hello, world!");
-            ImGui::End();
-            RainbowFight::ImguiRender(device.GetRenderTargetView());
             device.Present(config.isVSync);
         }
     }
-    RainbowFight::ImguiRelease();
+
     return 0;
 }
